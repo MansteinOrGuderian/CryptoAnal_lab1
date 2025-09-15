@@ -4,7 +4,7 @@
 \begin{document}
 \input{title.tex}
 
-\renewcommand{\chaptername}{Лекція}
+\renewcommand{\chaptername}{Комп'ютерний практикум \No}
 \makeatletter
 \renewcommand{\@pnumwidth}{2em}
 \renewcommand{\@tocrmarg}{3em}
@@ -28,15 +28,16 @@
 }
 \pagestyle{fancy}
 
+
 \theoremstyle{plain}
-\newtheorem{definition}{Означення}[section]
-\newtheorem{theorem}{Теорема}[section]
-\newtheorem{claim}{Твердження}[section]
+\newtheorem{definition}{Означення}%[section]
+\newtheorem{theorem}{Теорема}[chapter]
+\newtheorem{claim}{Твердження}[chapter]
 
 \theoremstyle{definition}
 \newtheorem*{remark}{Зауваження:}
 \newtheorem*{example}{Приклад}
-\newtheorem{lemma}{Лема}[section] 
+\newtheorem{lemma}{Лема}[chapter] 
 
 \renewcommand*{\proofname}{Доведення:} 
 
