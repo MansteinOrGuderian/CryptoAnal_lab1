@@ -54,15 +54,15 @@ int main() {
     }
     
     std::vector<double> probability_C = calculate_ciphertext_probabilities(probability_M, probability_K, cipher_table);
-    std::cout << "P(C) : ";
+    std::cout << "\nP(C): ";
     print1DArray(probability_C);
 
     std::vector<std::vector<double>> probability_M_C = calculate_joint_probabilities(probability_M, probability_K, cipher_table);
-    std::cout << "P(M, C) : \n";
+    std::cout << "\nP(M, C) : \n";
     print2DArray(probability_M_C);
 
     std::vector<std::vector<double>> probability_M_in_case_C = calculate_conditional_probabilities(probability_M_C, probability_C);
-    std::cout << "P(M | C) : \n";
+    std::cout << "\nP(M | C) : \n";
     print2DArray(probability_M_in_case_C);
     
     std::vector<int> optimal_deterministic_decision = optimal_deterministic_decision_function(probability_M_in_case_C);
