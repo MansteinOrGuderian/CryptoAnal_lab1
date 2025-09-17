@@ -20,7 +20,7 @@ int main() {
     }
     file.close();
     
-    std::cout << "=== DOUBLE DATA ===" << std::endl;
+    std::cout << "=== PROBABILITY DATA ===" << std::endl;
     std::cout << "Opened text probability: ";
     for (const auto& item : probability_M) {
         std::cout << item << " ";
