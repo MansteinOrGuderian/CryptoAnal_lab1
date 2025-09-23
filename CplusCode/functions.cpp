@@ -126,7 +126,7 @@ std::vector<std::vector<double>> calculate_conditional_probabilities(std::vector
         for (int j = 0; j < probability_M_in_case_C[i].size(); j++)
             probability_M_in_case_C[i][j] /= probability_C[j];
     return probability_M_in_case_C;
-} // TO DO
+}
 
 std::vector<int> optimal_deterministic_decision_function(std::vector<std::vector<double>>& probability_M_in_case_C) {
     std::vector<int> optimal_deterministic_decision;
@@ -154,9 +154,11 @@ std::vector<std::vector<double>> optimal_stochastic_decision_function(std::vecto
         for (int j = 0; j < probability_M_in_case_C[i].size(); j++)
             if (probability_M_in_case_C[i][j] == maxValue) 
                 amount_of_max_value += 1;
-        //std::cout << amount_of_max_value << '\n';
-        for (int j = 0; j < probability_M_in_case_C[i].size(); j++)
-            optimal_stochastic_decision[i][j] == maxValue ? optimal_stochastic_decision[i][j] = 1 / amount_of_max_value : optimal_stochastic_decision[i][j] = 0; // maybe not integer value in some row
+        std::cout << amount_of_max_value << '\n';
+        for (int j = 0; j < probability_M_in_case_C[i].size(); j++) {
+            //std::cout << optimal_stochastic_decision[i][j] << "\t" << maxValue << "\t" << (double)(1.0 / amount_of_max_value) << '\n';
+            optimal_stochastic_decision[i][j] == maxValue ? optimal_stochastic_decision[i][j] = 1.0  / amount_of_max_value : optimal_stochastic_decision[i][j] = 0; // maybe not integer value in some row
+        }
     }
     return optimal_stochastic_decision;
 } 

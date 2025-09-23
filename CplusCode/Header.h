@@ -4,6 +4,7 @@
 #include <string>
 #include <sstream>
 #include <algorithm>
+#include <iomanip>
 
 std::vector<double> parseCSVLineDouble(const std::string& line);
 std::vector<int> parseCSVLineInt(const std::string& line);
@@ -18,12 +19,41 @@ void print1DArray(const std::vector<T>& arr) {
 }
 template<typename T>
 void print2DArray(const std::vector<std::vector<T>>& arr) {
+    if (arr.empty()) return;
+
+    // Calculate maximum width for each column
+    std::vector<size_t> colWidths(arr[0].size(), 0);
+
+    // Check column headers width ("C 0", "C 1", etc.)
+    for (size_t j = 0; j < arr[0].size(); j++) {
+        std::ostringstream headerStream;
+        headerStream << "C " << j;
+        colWidths[j] = std::max(colWidths[j], headerStream.str().length());
+    }
+
+    // Check data values width
+    for (size_t i = 0; i < arr.size(); i++) {
+        for (size_t j = 0; j < arr[i].size(); j++) {
+            std::ostringstream dataStream;
+            dataStream << arr[i][j];
+            colWidths[j] = std::max(colWidths[j], dataStream.str().length());
+        }
+    }
+
+    // Print column headers
+    std::cout << "     \t"; // Space for row labels
+    for (size_t j = 0; j < arr[0].size(); j++) {
+        std::cout << std::setw(colWidths[j]) << ("C " + std::to_string(j));
+        if (j < arr[0].size() - 1) std::cout << "\t";
+    }
+    std::cout << "\n";
+
+    // Print data rows
     for (size_t i = 0; i < arr.size(); i++) {
         std::cout << "R " << i << ":\t";
         for (size_t j = 0; j < arr[i].size(); j++) {
-            std::cout << arr[i][j];
-            if (j < arr[i].size() - 1)
-                std::cout << "\t";
+            std::cout << std::setw(colWidths[j]) << arr[i][j];
+            if (j < arr[i].size() - 1) std::cout << "\t";
         }
         std::cout << std::endl;
     }
