@@ -83,15 +83,9 @@ std::vector<double> calculate_ciphertext_probabilities(std::vector<double>& prob
     //int result_size = max_cipher_value + 1;
     //double* result_P_C = new double[result_size]();
     double* result_P_C = new double[cipher_table.size()] ();
-    for (int i = 0; i < cipher_table.size(); i++) // key
-    //{
-        for (int j = 0; j < cipher_table[i].size(); j++) // opened message 
-        //{
-            //std::cout << cipher_table[i][j] << "+ K_" << i << "*" << "M_" << j << "\n";
+    for (int i = 0; i < cipher_table.size(); i++) 
+        for (int j = 0; j < cipher_table[i].size(); j++)
             result_P_C[cipher_table[i][j]] += probability_M[i] * probability_K[j];
-        //}
-    //std::cout << '\n';
-    //}
     std::vector<double> vec_result_P_C;
     for (int i = 0; i < cipher_table.size(); i++)
         vec_result_P_C.push_back(result_P_C[i]);
@@ -105,7 +99,7 @@ std::vector<std::vector<double>> calculate_joint_probabilities(std::vector<doubl
         probability_P_M_C[i] = new double[cipher_table.size()] ();
     
     for (int i = 0; i < cipher_table.size(); i++) 
-        for (int j = 0; j < cipher_table.size(); j++) // P(M, C) = \sum_{(K, M) = C} P(M) * P(C)  // why sum, if all unique ????
+        for (int j = 0; j < cipher_table.size(); j++) // P(M, C) = \sum_{(K, M) = C} P(M) * P(C)
             probability_P_M_C[i][cipher_table[i][j]] += probability_M[i] * probability_K[j]; 
 
     std::vector<std::vector<double>> vec_probability_P_M_C(cipher_table.size(), std::vector<double>(cipher_table.size(), 0));
@@ -149,16 +143,17 @@ std::vector<std::vector<double>> optimal_stochastic_decision_function(std::vecto
     for (int i = 0; i < probability_M_in_case_C.size(); i++) {
         
         int amount_of_max_value = 0;
-        double maxValue = *std::max_element(probability_M_in_case_C[i].begin(), probability_M_in_case_C[i].end());
-        //std::cout << maxValue << ' ';
-        for (int j = 0; j < probability_M_in_case_C[i].size(); j++)
-            if (probability_M_in_case_C[i][j] == maxValue) 
+        double maxValue = 0.0;
+        for (int row = 0; row < probability_M_in_case_C.size(); row++)
+            if (probability_M_in_case_C[row][i] > maxValue)
+                maxValue = probability_M_in_case_C[row][i];
+        
+        for (int row = 0; row < probability_M_in_case_C.size(); row++)
+            if (probability_M_in_case_C[row][i] == maxValue)
                 amount_of_max_value += 1;
-        std::cout << amount_of_max_value << '\n';
-        for (int j = 0; j < probability_M_in_case_C[i].size(); j++) {
-            //std::cout << optimal_stochastic_decision[i][j] << "\t" << maxValue << "\t" << (double)(1.0 / amount_of_max_value) << '\n';
-            optimal_stochastic_decision[i][j] == maxValue ? optimal_stochastic_decision[i][j] = 1.0  / amount_of_max_value : optimal_stochastic_decision[i][j] = 0; // maybe not integer value in some row
-        }
+
+        for (int row = 0; row < probability_M_in_case_C[i].size(); row++)
+            optimal_stochastic_decision[row][i] == maxValue ? optimal_stochastic_decision[row][i] = 1.0  / amount_of_max_value : optimal_stochastic_decision[row][i] = 0;
     }
     return optimal_stochastic_decision;
 } 
