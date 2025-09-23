@@ -106,7 +106,7 @@ std::vector<std::vector<double>> calculate_joint_probabilities(std::vector<doubl
     
     for (int i = 0; i < cipher_table.size(); i++) 
         for (int j = 0; j < cipher_table.size(); j++) // P(M, C) = \sum_{(K, M) = C} P(M) * P(C)  // why sum, if all unique ????
-            probability_P_M_C[i][cipher_table[i][j]] = probability_M[i] * probability_K[j]; 
+            probability_P_M_C[i][cipher_table[i][j]] += probability_M[i] * probability_K[j]; 
 
     std::vector<std::vector<double>> vec_probability_P_M_C(cipher_table.size(), std::vector<double>(cipher_table.size(), 0));
     for (int i = 0; i < cipher_table.size(); i++)
@@ -126,7 +126,7 @@ std::vector<std::vector<double>> calculate_conditional_probabilities(std::vector
         for (int j = 0; j < probability_M_in_case_C[i].size(); j++)
             probability_M_in_case_C[i][j] /= probability_C[j];
     return probability_M_in_case_C;
-}
+} // TO DO
 
 std::vector<int> optimal_deterministic_decision_function(std::vector<std::vector<double>>& probability_M_in_case_C) {
     std::vector<int> optimal_deterministic_decision;
@@ -152,14 +152,14 @@ std::vector<std::vector<double>> optimal_stochastic_decision_function(std::vecto
         double maxValue = *std::max_element(probability_M_in_case_C[i].begin(), probability_M_in_case_C[i].end());
         //std::cout << maxValue << ' ';
         for (int j = 0; j < probability_M_in_case_C[i].size(); j++)
-            if (probability_M_in_case_C[i][j] == maxValue)
+            if (probability_M_in_case_C[i][j] == maxValue) 
                 amount_of_max_value += 1;
         //std::cout << amount_of_max_value << '\n';
         for (int j = 0; j < probability_M_in_case_C[i].size(); j++)
-            optimal_stochastic_decision[i][j] == maxValue ? optimal_stochastic_decision[i][j] = 1 / amount_of_max_value : optimal_stochastic_decision[i][j] = 0;
+            optimal_stochastic_decision[i][j] == maxValue ? optimal_stochastic_decision[i][j] = 1 / amount_of_max_value : optimal_stochastic_decision[i][j] = 0; // maybe not integer value in some row
     }
     return optimal_stochastic_decision;
-}
+} 
 
 double average_loss_deterministic_function(std::vector<std::vector<double>>& probability_M_in_case_C, std::vector<int>& optimal_deterministic_decision) {
     double average_loss_deterministic = 0.0;

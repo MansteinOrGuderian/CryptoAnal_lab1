@@ -19,11 +19,11 @@ void print1DArray(const std::vector<T>& arr) {
 template<typename T>
 void print2DArray(const std::vector<std::vector<T>>& arr) {
     for (size_t i = 0; i < arr.size(); i++) {
-        std::cout << "Row " << i << ": ";
+        std::cout << "R " << i << ":\t";
         for (size_t j = 0; j < arr[i].size(); j++) {
             std::cout << arr[i][j];
             if (j < arr[i].size() - 1)
-                std::cout << " ";
+                std::cout << "\t";
         }
         std::cout << std::endl;
     }
