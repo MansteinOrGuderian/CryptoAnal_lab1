@@ -33,7 +33,6 @@ int main() {
         std::cout << item << " ";
     }
     
-    // ---------------------------------------------------
 
     std::string intFilename = "../var_data/table_15.csv";
     std::vector<std::vector<int>> raw_cipher_table = readIntegerCSV(intFilename);
@@ -52,6 +51,8 @@ int main() {
     } else {
         std::cerr << "Failed to read integer CSV file or file is empty!" << std::endl;
     }
+
+    // ---------------------------------------------------
     
     std::vector<double> probability_C = calculate_ciphertext_probabilities(probability_M, probability_K, cipher_table);
     std::cout << "\nP(C): ";
@@ -81,4 +82,3 @@ int main() {
 
     return 0;
 }
-

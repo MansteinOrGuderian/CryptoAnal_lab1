@@ -140,8 +140,7 @@ std::vector<int> optimal_deterministic_decision_function(std::vector<std::vector
 
 std::vector<std::vector<double>> optimal_stochastic_decision_function(std::vector<std::vector<double>>& probability_M_in_case_C) {
     std::vector<std::vector<double>> optimal_stochastic_decision = probability_M_in_case_C;
-    for (int i = 0; i < probability_M_in_case_C.size(); i++) {
-        
+    for (int i = 0; i < probability_M_in_case_C.size(); i++) { 
         int amount_of_max_value = 0;
         double maxValue = 0.0;
         for (int row = 0; row < probability_M_in_case_C.size(); row++)
